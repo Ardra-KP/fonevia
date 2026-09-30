@@ -8,22 +8,35 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Malayalam:wght@700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
-body{font-family:'Plus Jakarta Sans',sans-serif;background:#F6F8FF}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#F6F8FF; overflow-x:hidden;}
 .m{font-family:'Noto Sans Malayalam',sans-serif}
 .tab{display:none}.tab.active{display:block}
 .menu.active{background:#2B5BFF!important;color:white!important}
 .card:hover{transform:translateY(-2px);box-shadow:0 10px 20px rgba(0,0,0,.06)}
+#sidebar{transition: transform 0.3s ease;}
 </style>
 </head>
-<body class="flex min-h-screen">
+<body class="flex flex-col md:flex-row min-h-screen">
 
-<aside class="w-[260px] bg-[#0E1C3D] p-5 flex flex-col justify-between">
+<!-- Mobile Header -->
+<div class="md:hidden bg-[#0E1C3D] p-4 flex justify-between items-center sticky top-0 z-40">
+  <div class="flex gap-3 items-center">
+    <div class="w-[32px] h-[32px] rounded-[10px] bg-[#2B5BFF] grid place-items-center"><svg width="18" height="18" viewBox="0 0 100 100" fill="none"><path d="M15 10 C15 2 25 2 55 2 L85 2 C95 2 95 12 85 12 L38 12 L38 35 L75 35 L85 48 L40 70 L15 10Z" fill="white"/><path d="M88 35 C95 35 98 45 90 60 C85 70 75 85 65 90 C60 93 55 85 62 80 C68 75 75 65 80 55 C82 50 80 45 78 48 C75 52 68 52 60 52 L60 35 L88 35Z" fill="white" opacity=".95"/><circle cx="42" cy="88" r="10" fill="#2B5BFF"/></svg></div>
+    <p class="font-extrabold text-[18px] text-white">Fonevia</p>
+  </div>
+  <button id="mobileMenuBtn" class="w-9 h-9 bg-white/10 rounded-full grid place-items-center text-white">☰</button>
+</div>
+
+<aside id="sidebar" class="w-[280px] md:w-[260px] bg-[#0E1C3D] p-5 flex flex-col justify-between fixed md:static inset-y-0 left-0 z-50 transform -translate-x-full md:translate-x-0">
   <div>
-    <div class="flex gap-3 items-center px-1 mb-10">
-      <div class="w-[36px] h-[36px] rounded-[10px] bg-[#2B5BFF] grid place-items-center shadow-sm">
-        <svg width="20" height="20" viewBox="0 0 100 100" fill="none"><path d="M15 10 C15 2 25 2 55 2 L85 2 C95 2 95 12 85 12 L38 12 L38 35 L75 35 L85 48 L40 70 L15 10Z" fill="white"/><path d="M88 35 C95 35 98 45 90 60 C85 70 75 85 65 90 C60 93 55 85 62 80 C68 75 75 65 80 55 C82 50 80 45 78 48 C75 52 68 52 60 52 L60 35 L88 35Z" fill="white" opacity=".95"/><circle cx="42" cy="88" r="10" fill="#2B5BFF"/></svg>
+    <div class="flex justify-between items-center md:block">
+      <div class="flex gap-3 items-center px-1 mb-10">
+        <div class="w-[36px] h-[36px] rounded-[10px] bg-[#2B5BFF] grid place-items-center shadow-sm">
+          <svg width="20" height="20" viewBox="0 0 100 100" fill="none"><path d="M15 10 C15 2 25 2 55 2 L85 2 C95 2 95 12 85 12 L38 12 L38 35 L75 35 L85 48 L40 70 L15 10Z" fill="white"/><path d="M88 35 C95 35 98 45 90 60 C85 70 75 85 65 90 C60 93 55 85 62 80 C68 75 75 65 80 55 C82 50 80 45 78 48 C75 52 68 52 60 52 L60 35 L88 35Z" fill="white" opacity=".95"/><circle cx="42" cy="88" r="10" fill="#2B5BFF"/></svg>
+        </div>
+        <div class="leading-none"><p class="font-extrabold text-[20px] tracking-tight"><span class="text-white">Fone</span><span class="text-[#6C7BFF]">v</span><span class="text-white">ia</span></p><p class="m text-[11px] text-white/50 font-bold mt-[3px]">മലബാറിന്റെ സ്വന്തം</p></div>
       </div>
-      <div class="leading-none"><p class="font-extrabold text-[20px] tracking-tight"><span class="text-white">Fone</span><span class="text-[#6C7BFF]">v</span><span class="text-white">ia</span></p><p class="m text-[11px] text-white/50 font-bold mt-[3px]">മലബാറിന്റെ സ്വന്തം</p></div>
+      <button id="closeMenuBtn" class="md:hidden w-8 h-8 bg-white/10 rounded-full grid place-items-center text-white">✕</button>
     </div>
     <nav class="space-y-1">
       <button onclick="showTab('dash',this)" class="menu active w-full text-left px-4 py-3 rounded-xl text-[13px] font-bold flex gap-3">🏠 Dashboard</button>
@@ -34,64 +47,66 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#F6F8FF}
       <button onclick="showTab('wallet',this)" class="menu w-full text-left px-4 py-3 rounded-xl text-[13px] text-white/60 flex gap-3 hover:bg-white/10">💳 Wallet</button>
     </nav>
   </div>
-  <a href="/" class="block text-center w-full bg-white/10 py-3 rounded-full text-[13px] text-white/80">← Home</a>
+  <a href="/" class="block text-center w-full bg-white/10 py-3 rounded-full text-[13px] text-white/80 mt-6">← Home</a>
 </aside>
 
-<main class="flex-1 p-8">
-  <div class="flex justify-between items-center">
-    <div><h1 class="text-[28px] font-extrabold text-[#0E1C3D]">Welcome back 👋</h1><p class="text-[13px] text-gray-500">Track your repairs & orders</p></div>
-    <div class="flex gap-3 items-center"><div class="w-10 h-10 bg-white rounded-full grid place-items-center shadow">🔔</div><div class="bg-white px-4 py-2 rounded-full shadow text-[13px] font-bold">Admin</div></div>
+<div id="overlay" class="fixed inset-0 bg-black/40 hidden z-40 md:hidden"></div>
+
+<main class="flex-1 p-4 md:p-8 w-full min-w-0">
+  <div class="flex justify-between items-center gap-3">
+    <div><h1 class="text-[22px] md:text-[28px] font-extrabold text-[#0E1C3D]">Welcome back 👋</h1><p class="text-[12px] md:text-[13px] text-gray-500">Track your repairs & orders</p></div>
+    <div class="flex gap-2 md:gap-3 items-center shrink-0"><div class="w-9 h-9 md:w-10 md:h-10 bg-white rounded-full grid place-items-center shadow text-sm">🔔</div><div class="bg-white px-3 md:px-4 py-2 rounded-full shadow text-[12px] md:text-[13px] font-bold">Admin</div></div>
   </div>
 
   <div id="dash" class="tab active">
-    <div class="grid grid-cols-3 gap-5 mt-7">
-      <div class="bg-[#E8F2FF] rounded-[20px] p-5 flex gap-4 card transition"><div class="w-12 h-12 bg-white rounded-xl grid place-items-center shadow">🔧</div><div><p class="text-[11px] font-bold text-gray-500">Total Repairs</p><p class="text-[32px] font-extrabold">12</p></div></div>
-      <div class="bg-[#F2EBFF] rounded-[20px] p-5 flex gap-4 card transition"><div class="w-12 h-12 bg-white rounded-xl grid place-items-center shadow">🕒</div><div><p class="text-[11px] font-bold text-gray-500">Pending</p><p class="text-[32px] font-extrabold">2</p></div></div>
-      <div class="bg-[#0E1C3D] rounded-[20px] p-5 flex gap-4 text-white card transition"><div class="w-12 h-12 bg-white/10 rounded-xl grid place-items-center">💰</div><div><p class="text-[11px] font-bold text-white/60">Total Earning</p><p class="text-[32px] font-extrabold">₹4,200</p></div></div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 mt-6 md:mt-7">
+      <div class="bg-[#E8F2FF] rounded-[20px] p-5 flex gap-4 card transition"><div class="w-12 h-12 bg-white rounded-xl grid place-items-center shadow shrink-0">🔧</div><div><p class="text-[11px] font-bold text-gray-500">Total Repairs</p><p class="text-[28px] md:text-[32px] font-extrabold">12</p></div></div>
+      <div class="bg-[#F2EBFF] rounded-[20px] p-5 flex gap-4 card transition"><div class="w-12 h-12 bg-white rounded-xl grid place-items-center shadow shrink-0">🕒</div><div><p class="text-[11px] font-bold text-gray-500">Pending</p><p class="text-[28px] md:text-[32px] font-extrabold">2</p></div></div>
+      <div class="bg-[#0E1C3D] rounded-[20px] p-5 flex gap-4 text-white card transition"><div class="w-12 h-12 bg-white/10 rounded-xl grid place-items-center shrink-0">💰</div><div><p class="text-[11px] font-bold text-white/60">Total Earning</p><p class="text-[28px] md:text-[32px] font-extrabold">₹4,200</p></div></div>
     </div>
-    <div class="grid grid-cols-[2fr_1fr] gap-5 mt-6">
-      <div class="bg-white rounded-[20px] p-6 shadow-sm"><h3 class="font-bold text-[15px]">Recent Orders</h3><div class="mt-4 bg-[#F8FAFF] rounded-xl grid grid-cols-5 px-4 py-3 text-[11px] font-bold text-gray-500"><span>Order ID</span><span>Device</span><span>Issue</span><span>Status</span><span>Date</span></div><div class="grid grid-cols-5 px-4 py-4 text-[13px]"><span class="font-bold">#FONE8421</span><span>iPhone 14</span><span class="text-gray-500">Display</span><span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-[11px] font-bold w-fit">● Completed</span><span class="text-[11px]">26 Apr 2025</span></div></div>
+    <div class="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-4 md:gap-5 mt-5 md:mt-6">
+      <div class="bg-white rounded-[20px] p-4 md:p-6 shadow-sm overflow-x-auto"><h3 class="font-bold text-[15px]">Recent Orders</h3>
+        <div class="mt-4 min-w-[500px]"><div class="bg-[#F8FAFF] rounded-xl grid grid-cols-5 px-4 py-3 text-[11px] font-bold text-gray-500"><span>Order ID</span><span>Device</span><span>Issue</span><span>Status</span><span>Date</span></div><div class="grid grid-cols-5 px-4 py-4 text-[13px]"><span class="font-bold">#FONE8421</span><span>iPhone 14</span><span class="text-gray-500">Display</span><span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-[11px] font-bold w-fit">● Completed</span><span class="text-[11px]">26 Apr 2025</span></div></div>
+      </div>
       <div class="bg-white rounded-[20px] p-6 shadow-sm text-center"><div class="w-20 h-20 bg-blue-50 rounded-2xl mx-auto grid place-items-center text-3xl">📱</div><h3 class="font-bold text-sm mt-4">Fast. Reliable. Professional.</h3><button onclick="showTab('track',document.querySelectorAll('.menu')[1])" class="mt-4 w-full bg-[#2B5BFF] text-white py-3 rounded-full text-xs font-bold">Track Your Order →</button></div>
     </div>
   </div>
 
-  <div id="track" class="tab"><div class="bg-white rounded-[20px] p-7 shadow-sm mt-6"><h3 class="font-bold">Track Order Live</h3><div class="flex gap-3 mt-4 max-w-[500px]"><input id="tInput" placeholder="FONE8421" class="flex-1 px-6 py-3.5 rounded-full bg-[#F6F8FF] border text-sm outline-none"><button onclick="doTrack()" class="bg-[#0E1C3D] text-white px-8 py-3.5 rounded-full text-sm font-bold">Track</button></div><div id="tResult" class="hidden mt-6"><p id="tId" class="font-extrabold"></p><div class="flex justify-between relative mt-6 text-[11px] font-bold"><div class="absolute top-2 left-6 right-6 h-[2px] bg-gray-100"></div><div class="absolute top-2 left-6 w-[60%] h-[2px] bg-[#2B5BFF]"></div><div class="z-10 text-center"><div class="w-4 h-4 bg-[#2B5BFF] rounded-full mx-auto"></div>Booked</div><div class="z-10 text-center"><div class="w-4 h-4 bg-[#2B5BFF] rounded-full mx-auto"></div>At Shop</div><div class="z-10 text-center"><div class="w-4 h-4 bg-[#2B5BFF] rounded-full mx-auto ring-4 ring-blue-100 animate-pulse"></div>Repairing</div><div class="z-10 text-center"><div class="w-4 h-4 bg-gray-200 rounded-full mx-auto"></div>Ready</div></div></div></div></div>
+  <div id="track" class="tab"><div class="bg-white rounded-[20px] p-5 md:p-7 shadow-sm mt-6"><h3 class="font-bold">Track Order Live</h3><div class="flex flex-col md:flex-row gap-3 mt-4 max-w-[500px]"><input id="tInput" placeholder="FONE8421" class="flex-1 px-6 py-3.5 rounded-full bg-[#F6F8FF] border text-sm outline-none"><button onclick="doTrack()" class="bg-[#0E1C3D] text-white px-8 py-3.5 rounded-full text-sm font-bold w-full md:w-auto">Track</button></div><div id="tResult" class="hidden mt-6"><p id="tId" class="font-extrabold"></p><div class="flex justify-between relative mt-6 text-[10px] md:text-[11px] font-bold"><div class="absolute top-2 left-6 right-6 h-[2px] bg-gray-100"></div><div class="absolute top-2 left-6 w-[60%] h-[2px] bg-[#2B5BFF]"></div><div class="z-10 text-center"><div class="w-4 h-4 bg-[#2B5BFF] rounded-full mx-auto"></div>Booked</div><div class="z-10 text-center"><div class="w-4 h-4 bg-[#2B5BFF] rounded-full mx-auto"></div>At Shop</div><div class="z-10 text-center"><div class="w-4 h-4 bg-[#2B5BFF] rounded-full mx-auto ring-4 ring-blue-100 animate-pulse"></div>Repairing</div><div class="z-10 text-center"><div class="w-4 h-4 bg-gray-200 rounded-full mx-auto"></div>Ready</div></div></div></div></div>
 
   <div id="repairs" class="tab">
     <div class="flex justify-between items-center mt-6"><h2 class="font-bold text-lg">My Repairs (4)</h2><span class="text-xs bg-[#E8F2FF] text-[#2B5BFF] px-3 py-1 rounded-full font-bold">2 Active</span></div>
     <div class="space-y-3 mt-4">
-      <div class="bg-white rounded-[16px] p-4 flex justify-between items-center shadow-sm card"><div class="flex gap-4 items-center"><div class="w-12 h-12 bg-[#F2EBFF] rounded-xl grid place-items-center">📱</div><div><p class="text-[13px] font-bold">#FONE8421 - iPhone 14 Display</p><p class="text-[11px] text-gray-400">Manjeri • Tech: Ashik</p></div></div><div class="text-right"><span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-[11px] font-bold">Repairing</span><button onclick="viewRepair('FONE8421')" class="block mt-2 text-[11px] font-bold text-[#2B5BFF]">View Details →</button></div></div>
+      <div class="bg-white rounded-[16px] p-4 flex flex-col sm:flex-row justify-between gap-3 sm:items-center shadow-sm card"><div class="flex gap-4 items-center"><div class="w-12 h-12 bg-[#F2EBFF] rounded-xl grid place-items-center shrink-0">📱</div><div><p class="text-[13px] font-bold">#FONE8421 - iPhone 14 Display</p><p class="text-[11px] text-gray-400">Manjeri • Tech: Ashik</p></div></div><div class="text-left sm:text-right flex sm:block gap-3 items-center"><span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-[11px] font-bold">Repairing</span><button onclick="viewRepair('FONE8421')" class="block sm:mt-2 text-[11px] font-bold text-[#2B5BFF]">View Details →</button></div></div>
     </div>
   </div>
 
-  <!-- MY ORDERS - WORKING -->
   <div id="orders" class="tab">
     <div class="flex justify-between items-center mt-6"><h2 class="font-bold text-lg">My Orders (3)</h2><button class="text-[11px] font-bold text-[#2B5BFF]">+ Order New</button></div>
     <div class="space-y-3 mt-4" id="ordersList">
-      <div id="order-ORD112" class="bg-white rounded-[16px] p-4 flex justify-between items-center shadow-sm card"><div class="flex gap-4 items-center"><div class="w-14 h-14 bg-[#F8FAFF] rounded-xl grid place-items-center text-xl">📱</div><div><p class="text-[13px] font-bold">iPhone 15 Back Case</p><p class="text-[11px] text-gray-400">Order #ORD112 • Delivered 24 Apr</p><p class="text-[10px] text-green-600 font-bold mt-1">● Delivered</p></div></div><div class="text-right"><b class="text-sm">₹499</b><div class="flex gap-2 mt-2"><button onclick="reorderItem('ORD112','Back Case')" class="text-[11px] bg-[#0E1C3D] text-white px-3 py-1.5 rounded-full font-bold hover:bg-black">Reorder</button><button onclick="viewInvoice('ORD112')" class="text-[11px] border px-3 py-1.5 rounded-full font-bold">Invoice</button></div></div></div>
+      <div id="order-ORD112" class="bg-white rounded-[16px] p-4 flex flex-col sm:flex-row justify-between gap-3 sm:items-center shadow-sm card"><div class="flex gap-4 items-center"><div class="w-14 h-14 bg-[#F8FAFF] rounded-xl grid place-items-center text-xl shrink-0">📱</div><div><p class="text-[13px] font-bold">iPhone 15 Back Case</p><p class="text-[11px] text-gray-400">Order #ORD112 • Delivered 24 Apr</p><p class="text-[10px] text-green-600 font-bold mt-1">● Delivered</p></div></div><div class="text-left sm:text-right"><b class="text-sm">₹499</b><div class="flex gap-2 mt-2"><button onclick="reorderItem('ORD112','Back Case')" class="text-[11px] bg-[#0E1C3D] text-white px-3 py-1.5 rounded-full font-bold hover:bg-black">Reorder</button><button onclick="viewInvoice('ORD112')" class="text-[11px] border px-3 py-1.5 rounded-full font-bold">Invoice</button></div></div></div>
 
-      <div id="order-ORD108" class="bg-white rounded-[16px] p-4 flex justify-between items-center shadow-sm card"><div class="flex gap-4 items-center"><div class="w-14 h-14 bg-[#F8FAFF] rounded-xl grid place-items-center text-xl">🔌</div><div><p class="text-[13px] font-bold">20W Fast Charger</p><p class="text-[11px] text-gray-400">Order #ORD108 • Shipped</p><p class="text-[10px] text-blue-600 font-bold mt-1">🚚 Out for delivery</p></div></div><div class="text-right"><b class="text-sm">₹1,299</b><div class="flex gap-2 mt-2"><button onclick="trackOrder('ORD108')" class="text-[11px] bg-[#2B5BFF] text-white px-3 py-1.5 rounded-full font-bold">Track →</button><button onclick="cancelOrder('ORD108')" class="text-[11px] border border-red-200 text-red-500 px-3 py-1.5 rounded-full font-bold">Cancel</button></div></div></div>
+      <div id="order-ORD108" class="bg-white rounded-[16px] p-4 flex flex-col sm:flex-row justify-between gap-3 sm:items-center shadow-sm card"><div class="flex gap-4 items-center"><div class="w-14 h-14 bg-[#F8FAFF] rounded-xl grid place-items-center text-xl shrink-0">🔌</div><div><p class="text-[13px] font-bold">20W Fast Charger</p><p class="text-[11px] text-gray-400">Order #ORD108 • Shipped</p><p class="text-[10px] text-blue-600 font-bold mt-1">🚚 Out for delivery</p></div></div><div class="text-left sm:text-right"><b class="text-sm">₹1,299</b><div class="flex gap-2 mt-2"><button onclick="trackOrder('ORD108')" class="text-[11px] bg-[#2B5BFF] text-white px-3 py-1.5 rounded-full font-bold">Track →</button><button onclick="cancelOrder('ORD108')" class="text-[11px] border border-red-200 text-red-500 px-3 py-1.5 rounded-full font-bold">Cancel</button></div></div></div>
 
-      <div id="order-ORD099" class="bg-white rounded-[16px] p-4 flex justify-between items-center shadow-sm card"><div class="flex gap-4 items-center"><div class="w-14 h-14 bg-[#F8FAFF] rounded-xl grid place-items-center text-xl">🎧</div><div><p class="text-[13px] font-bold">Type-C Earphone</p><p class="text-[11px] text-gray-400">Order #ORD099 • Processing</p><p class="text-[10px] text-yellow-600 font-bold mt-1">⏳ Processing</p></div></div><div class="text-right"><b class="text-sm">₹799</b><div class="flex gap-2 mt-2"><button onclick="trackOrder('ORD099')" class="text-[11px] bg-[#2B5BFF] text-white px-3 py-1.5 rounded-full font-bold">Track →</button><button onclick="cancelOrder('ORD099')" class="text-[11px] border border-red-200 text-red-500 px-3 py-1.5 rounded-full font-bold">Cancel</button></div></div></div>
+      <div id="order-ORD099" class="bg-white rounded-[16px] p-4 flex flex-col sm:flex-row justify-between gap-3 sm:items-center shadow-sm card"><div class="flex gap-4 items-center"><div class="w-14 h-14 bg-[#F8FAFF] rounded-xl grid place-items-center text-xl shrink-0">🎧</div><div><p class="text-[13px] font-bold">Type-C Earphone</p><p class="text-[11px] text-gray-400">Order #ORD099 • Processing</p><p class="text-[10px] text-yellow-600 font-bold mt-1">⏳ Processing</p></div></div><div class="text-left sm:text-right"><b class="text-sm">₹799</b><div class="flex gap-2 mt-2"><button onclick="trackOrder('ORD099')" class="text-[11px] bg-[#2B5BFF] text-white px-3 py-1.5 rounded-full font-bold">Track →</button><button onclick="cancelOrder('ORD099')" class="text-[11px] border border-red-200 text-red-500 px-3 py-1.5 rounded-full font-bold">Cancel</button></div></div></div>
     </div>
   </div>
 
-  <!-- SHOPS - WORKING CALL -->
   <div id="shops" class="tab">
-    <div class="flex justify-between items-center mt-6"><h2 class="font-bold text-lg">Nearby Shops (6)</h2><input id="shopSearch" onkeyup="filterShops()" placeholder="Search shop..." class="px-4 py-1.5 rounded-full bg-white border text-xs outline-none"></div>
-    <div id="shopGrid" class="grid md:grid-cols-2 gap-4 mt-4">
-      <div class="shopCard bg-white rounded-2xl p-4 shadow-sm card border border-transparent"><div class="flex justify-between"><div><p class="font-bold text-sm">📱 Mobile Care Manjeri ⭐ 4.9</p><p class="text-[11px] text-gray-500 mt-1">2.1km • Open till 9PM • Manjeri</p><p class="text-[10px] text-[#2B5BFF] font-bold mt-1">Display Specialist</p></div><button onclick="callShop('Mobile Care Manjeri','9048123456')" class="h-fit bg-[#0E1C3D] text-white px-4 py-1.5 rounded-full text-[11px] font-bold hover:bg-black">📞 Call</button></div></div>
-      <div class="shopCard bg-white rounded-2xl p-4 shadow-sm card"><div class="flex justify-between"><div><p class="font-bold text-sm">📱 Fonespot Kozhikode ⭐ 4.8</p><p class="text-[11px] text-gray-500 mt-1">12km • Open till 10PM • Kozhikode</p></div><button onclick="callShop('Fonespot Kozhikode','9048123457')" class="h-fit bg-white border px-4 py-1.5 rounded-full text-[11px] font-bold hover:bg-gray-50">📞 Call</button></div></div>
-      <div class="shopCard bg-white rounded-2xl p-4 shadow-sm card"><div class="flex justify-between"><div><p class="font-bold text-sm">📱 iFix Malappuram ⭐ 4.7</p><p class="text-[11px] text-gray-500 mt-1">5.4km • Open • Malappuram</p></div><button onclick="callShop('iFix Malappuram','9048123458')" class="h-fit bg-white border px-4 py-1.5 rounded-full text-[11px] font-bold">📞 Call</button></div></div>
-      <div class="shopCard bg-white rounded-2xl p-4 shadow-sm card"><div class="flex justify-between"><div><p class="font-bold text-sm">📱 CellWorld Perinthalmanna ⭐ 4.6</p><p class="text-[11px] text-gray-500 mt-1">9.2km • Open • Perinthalmanna</p></div><button onclick="callShop('CellWorld Perinthalmanna','9048123459')" class="h-fit bg-white border px-4 py-1.5 rounded-full text-[11px] font-bold">📞 Call</button></div></div>
-      <div class="shopCard bg-white rounded-2xl p-4 shadow-sm card"><div class="flex justify-between"><div><p class="font-bold text-sm">📱 TechZone Manjeri ⭐ 4.8</p><p class="text-[11px] text-gray-500 mt-1">1.8km • Open • Manjeri</p></div><button onclick="callShop('TechZone Manjeri','9048123460')" class="h-fit bg-white border px-4 py-1.5 rounded-full text-[11px] font-bold">📞 Call</button></div></div>
-      <div class="shopCard bg-white rounded-2xl p-4 shadow-sm card opacity-60"><div class="flex justify-between"><div><p class="font-bold text-sm">📱 SmartFix Tirur ⭐ 4.5</p><p class="text-[11px] text-gray-500 mt-1">18km • Closed • Tirur</p></div><button class="h-fit bg-gray-100 px-4 py-1.5 rounded-full text-[11px] font-bold text-gray-400">Closed</button></div></div>
+    <div class="flex flex-col sm:flex-row justify-between gap-3 sm:items-center mt-6"><h2 class="font-bold text-lg">Nearby Shops (6)</h2><input id="shopSearch" onkeyup="filterShops()" placeholder="Search shop..." class="px-4 py-2 rounded-full bg-white border text-xs outline-none w-full sm:w-auto"></div>
+    <div id="shopGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+      <div class="shopCard bg-white rounded-2xl p-4 shadow-sm card border border-transparent"><div class="flex justify-between gap-2"><div><p class="font-bold text-sm">📱 Mobile Care Manjeri ⭐ 4.9</p><p class="text-[11px] text-gray-500 mt-1">2.1km • Open till 9PM • Manjeri</p><p class="text-[10px] text-[#2B5BFF] font-bold mt-1">Display Specialist</p></div><button onclick="callShop('Mobile Care Manjeri','9048123456')" class="h-fit bg-[#0E1C3D] text-white px-4 py-1.5 rounded-full text-[11px] font-bold hover:bg-black shrink-0">📞 Call</button></div></div>
+      <div class="shopCard bg-white rounded-2xl p-4 shadow-sm card"><div class="flex justify-between gap-2"><div><p class="font-bold text-sm">📱 Fonespot Kozhikode ⭐ 4.8</p><p class="text-[11px] text-gray-500 mt-1">12km • Open till 10PM • Kozhikode</p></div><button onclick="callShop('Fonespot Kozhikode','9048123457')" class="h-fit bg-white border px-4 py-1.5 rounded-full text-[11px] font-bold hover:bg-gray-50 shrink-0">📞 Call</button></div></div>
+      <div class="shopCard bg-white rounded-2xl p-4 shadow-sm card"><div class="flex justify-between gap-2"><div><p class="font-bold text-sm">📱 iFix Malappuram ⭐ 4.7</p><p class="text-[11px] text-gray-500 mt-1">5.4km • Open • Malappuram</p></div><button onclick="callShop('iFix Malappuram','9048123458')" class="h-fit bg-white border px-4 py-1.5 rounded-full text-[11px] font-bold shrink-0">📞 Call</button></div></div>
+      <div class="shopCard bg-white rounded-2xl p-4 shadow-sm card"><div class="flex justify-between gap-2"><div><p class="font-bold text-sm">📱 CellWorld Perinthalmanna ⭐ 4.6</p><p class="text-[11px] text-gray-500 mt-1">9.2km • Open • Perinthalmanna</p></div><button onclick="callShop('CellWorld Perinthalmanna','9048123459')" class="h-fit bg-white border px-4 py-1.5 rounded-full text-[11px] font-bold shrink-0">📞 Call</button></div></div>
+      <div class="shopCard bg-white rounded-2xl p-4 shadow-sm card"><div class="flex justify-between gap-2"><div><p class="font-bold text-sm">📱 TechZone Manjeri ⭐ 4.8</p><p class="text-[11px] text-gray-500 mt-1">1.8km • Open • Manjeri</p></div><button onclick="callShop('TechZone Manjeri','9048123460')" class="h-fit bg-white border px-4 py-1.5 rounded-full text-[11px] font-bold shrink-0">📞 Call</button></div></div>
+      <div class="shopCard bg-white rounded-2xl p-4 shadow-sm card opacity-60"><div class="flex justify-between gap-2"><div><p class="font-bold text-sm">📱 SmartFix Tirur ⭐ 4.5</p><p class="text-[11px] text-gray-500 mt-1">18km • Closed • Tirur</p></div><button class="h-fit bg-gray-100 px-4 py-1.5 rounded-full text-[11px] font-bold text-gray-400 shrink-0">Closed</button></div></div>
     </div>
   </div>
 
   <div id="wallet" class="tab">
-    <div class="grid grid-cols-1 md:grid-cols-[1.2fr_.8fr] gap-5 mt-6">
-      <div class="bg-gradient-to-br from-[#0E1C3D] to-[#1E3A8A] rounded-[24px] p-8 text-white"><p class="text-[11px] tracking-[2px] text-white/50 font-bold">WALLET BALANCE</p><p id="walletBalance" class="text-[44px] font-extrabold mt-2">₹850</p><div class="flex gap-3 mt-7"><button onclick="openAddMoney()" class="bg-white text-[#0E1C3D] px-6 py-3 rounded-full text-[13px] font-bold">+ Add Money</button><button onclick="openWithdraw()" class="bg-white/10 text-white px-6 py-3 rounded-full text-[13px] font-bold">⬇ Withdraw</button></div></div>
+    <div class="grid grid-cols-1 md:grid-cols-[1.2fr_.8fr] gap-4 md:gap-5 mt-6">
+      <div class="bg-gradient-to-br from-[#0E1C3D] to-[#1E3A8A] rounded-[24px] p-6 md:p-8 text-white"><p class="text-[11px] tracking-[2px] text-white/50 font-bold">WALLET BALANCE</p><p id="walletBalance" class="text-[36px] md:text-[44px] font-extrabold mt-2">₹850</p><div class="flex gap-3 mt-7"><button onclick="openAddMoney()" class="bg-white text-[#0E1C3D] px-6 py-3 rounded-full text-[13px] font-bold">+ Add Money</button><button onclick="openWithdraw()" class="bg-white/10 text-white px-6 py-3 rounded-full text-[13px] font-bold">⬇ Withdraw</button></div></div>
       <div class="space-y-4"><div class="bg-white rounded-[20px] p-5 shadow-sm"><p class="text-[11px] font-bold text-gray-400">TOTAL SPENT</p><p id="totalSpent" class="text-[22px] font-extrabold mt-1">₹12,430</p></div><div class="bg-white rounded-[20px] p-5 shadow-sm"><p class="text-[11px] font-bold text-gray-400">TOTAL SAVED</p><p class="text-[22px] font-extrabold mt-1">₹2,150</p></div></div>
     </div>
     <div class="bg-white rounded-[20px] p-6 shadow-sm mt-6"><div id="txnList" class="space-y-4"><div class="flex justify-between items-center"><div class="flex gap-3 items-center"><div class="w-10 h-10 bg-green-100 rounded-full grid place-items-center">💸</div><div><p class="text-[13px] font-bold">Cashback - iPhone Repair</p><p class="text-[11px] text-gray-400">26 Apr</p></div></div><p class="text-[13px] font-bold text-green-600">+ ₹100</p></div></div></div>
@@ -99,46 +114,45 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#F6F8FF}
 
   <div id="addModal" class="fixed inset-0 bg-black/50 hidden z-[100] flex items-center justify-center p-4"><div class="bg-white rounded-[20px] p-6 w-full max-w-[380px]"><h3 class="font-bold text-lg">Add Money</h3><div class="grid grid-cols-3 gap-2 mt-4"><button onclick="setAddAmount(100)" class="border rounded-full py-2 text-sm font-bold">₹100</button><button onclick="setAddAmount(500)" class="border rounded-full py-2 text-sm font-bold">₹500</button><button onclick="setAddAmount(1000)" class="border rounded-full py-2 text-sm font-bold">₹1000</button></div><input id="addAmountInput" type="number" placeholder="Enter amount" class="w-full mt-4 px-5 py-3 rounded-full bg-[#F6F8FF] border outline-none text-sm"><div class="flex gap-3 mt-4"><button onclick="closeAddMoney()" class="flex-1 py-3 rounded-full border text-sm font-bold">Cancel</button><button onclick="confirmAddMoney()" class="flex-1 py-3 rounded-full bg-[#0E1C3D] text-white text-sm font-bold">Add Now</button></div></div></div>
   <div id="withdrawModal" class="fixed inset-0 bg-black/50 hidden z-[100] flex items-center justify-center p-4"><div class="bg-white rounded-[20px] p-6 w-full max-w-[380px]"><h3 class="font-bold text-lg">Withdraw Money</h3><input id="withdrawAmountInput" type="number" placeholder="Min ₹100" class="w-full mt-4 px-5 py-3 rounded-full bg-[#F6F8FF] border outline-none text-sm"><div class="flex gap-3 mt-4"><button onclick="closeWithdraw()" class="flex-1 py-3 rounded-full border text-sm font-bold">Cancel</button><button onclick="confirmWithdraw()" class="flex-1 py-3 rounded-full bg-[#0E1C3D] text-white text-sm font-bold">Withdraw</button></div></div></div>
-
-  <!-- CALL MODAL -->
   <div id="callModal" class="fixed inset-0 bg-black/50 hidden z-[100] flex items-center justify-center p-4"><div class="bg-white rounded-[20px] p-6 w-full max-w-[340px] text-center"><p class="text-3xl">📞</p><h3 id="callShopName" class="font-bold text-lg mt-2"></h3><p id="callShopNumber" class="text-sm text-gray-500 mt-1"></p><div class="flex gap-3 mt-5"><button onclick="document.getElementById('callModal').classList.add('hidden')" class="flex-1 py-3 rounded-full border text-sm font-bold">Close</button><a id="callLink" href="#" class="flex-1 py-3 rounded-full bg-[#2B5BFF] text-white text-sm font-bold text-center">Call Now</a></div></div></div>
-
 </main>
 
 <script>
-function showTab(id,btn){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.menu').forEach(m=>m.classList.remove('active'));if(btn)btn.classList.add('active');}
-function doTrack(){let v=document.getElementById('tInput').value.trim();if(!v)return alert('Enter ID');document.getElementById('tId').innerText=v.toUpperCase()+' - Repairing';document.getElementById('tResult').classList.remove('hidden');}
-function filterShops(){let q=document.getElementById('shopSearch').value.toLowerCase();document.querySelectorAll('.shopCard').forEach(c=>{c.style.display=c.innerText.toLowerCase().includes(q)?'block':'none'})}
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('overlay');
+const menuBtn = document.getElementById('mobileMenuBtn');
+const closeBtn = document.getElementById('closeMenuBtn');
+function openSidebar(){ sidebar.classList.remove('-translate-x-full'); overlay.classList.remove('hidden'); }
+function closeSidebar(){ sidebar.classList.add('-translate-x-full'); overlay.classList.add('hidden'); }
+menuBtn.addEventListener('click', openSidebar);
+closeBtn.addEventListener('click', closeSidebar);
+overlay.addEventListener('click', closeSidebar);
 
-// SHOPS CALL WORKING
+function showTab(id,btn){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.menu').forEach(m=>m.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  closeSidebar();
+}
+function doTrack(){let v=document.getElementById('tInput').value.trim();if(!v)return alert('Enter ID');document.getElementById('tId').innerText=v.toUpperCase()+' - Repairing';document.getElementById('tResult').classList.remove('hidden');}
+function filterShops(){let q=document.getElementById('shopSearch').value.toLowerCase();document.querySelectorAll('.shopCard').forEach(c=>{c.style.display=c.innerText.toLowerCase().includes(q)?'':'none'; if(c.style.display==='') c.style.display='block';})}
 function callShop(name, number){
   document.getElementById('callShopName').innerText = name;
   document.getElementById('callShopNumber').innerText = '+91 ' + number;
   document.getElementById('callLink').href = 'tel:' + number;
   document.getElementById('callModal').classList.remove('hidden');
 }
-
-// ORDERS WORKING
-function trackOrder(id){
-  showTab('track', document.querySelectorAll('.menu')[1]);
-  document.getElementById('tInput').value = id;
-  doTrack();
-}
+function trackOrder(id){ showTab('track', document.querySelectorAll('.menu')[1]); document.getElementById('tInput').value = id; doTrack(); }
 function cancelOrder(id){
   if(confirm('Order #' + id + ' cancel cheyyano?')){
     let el = document.getElementById('order-' + id);
     el.innerHTML = `<div class="flex gap-4 items-center opacity-50"><div class="w-14 h-14 bg-red-50 rounded-xl grid place-items-center text-xl">❌</div><div><p class="text-[13px] font-bold line-through">Order #${id} - Cancelled</p><p class="text-[11px] text-red-500 font-bold">Cancelled • Refund will be processed in 24h</p></div></div>`;
   }
 }
-function reorderItem(id, name){
-  alert(name + ' (' + id + ') Reorder cheythu! Cart il add aayi ✅');
-  balance -= 100; // demo
-  if(balance<0) balance=850;
-}
+function reorderItem(id, name){ alert(name + ' (' + id + ') Reorder cheythu! Cart il add aayi ✅'); }
 function viewRepair(id){ alert(id + ' - Repair Details:\n\nTechnician: Ashik\nStatus: Repairing 60%\nETA: Tomorrow 4PM\nLocation: Mobile Care Manjeri'); }
 function viewInvoice(id){ alert('Invoice for ' + id + ' download aayi! 📄'); }
-
-// WALLET
 let balance=850;let spent=12430;
 function openAddMoney(){document.getElementById('addModal').classList.remove('hidden');}
 function closeAddMoney(){document.getElementById('addModal').classList.add('hidden');document.getElementById('addAmountInput').value='';}

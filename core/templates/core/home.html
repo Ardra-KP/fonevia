@@ -8,12 +8,12 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Malayalam:wght@700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; background: #F8F7FF; }
-.m { font-family: 'Noto Sans Malayalam', sans-serif; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: #F8F7FF; overflow-x: hidden; }
+   .m { font-family: 'Noto Sans Malayalam', sans-serif; }
     #loader { position: fixed; inset: 0; background: white; z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; transition:.6s; }
     #loader.hide { transform: translateY(-100%); }
-.card { transition:.3s; }
-.card:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(0,0,0,0.08); }
+   .card { transition:.3s; }
+   .card:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(0,0,0,0.08); }
   </style>
 </head>
 <body>
@@ -26,41 +26,35 @@
     <p class="m text-[#6C5CE7] text-sm font-bold">മലബാറിന്റെ സ്വന്തം</p>
   </div>
 
-  <nav class="bg-white px-6 md:px-8 py-4 flex justify-between items-center sticky top-0 z-50 border-b">
+  <nav class="bg-white px-4 md:px-8 py-4 flex justify-between items-center sticky top-0 z-50 border-b">
     <div class="flex items-center gap-2.5">
       <div class="w-8 h-8 rounded-[10px] bg-gradient-to-br from-[#6C5CE7] to-[#7C6EF0] flex items-center justify-center shadow-sm"><svg width="20" height="20" viewBox="0 0 100 100" fill="none"><path d="M15 10 C15 2 25 2 55 2 L85 2 C95 2 95 12 85 12 L38 12 L38 35 L75 35 L85 48 L40 70 L15 10Z" fill="white"/><path d="M88 35 C95 35 98 45 90 60 C85 70 75 85 65 90 C60 93 55 85 62 80 C68 75 75 65 80 55 C82 50 80 45 78 48 C75 52 68 52 60 52 L60 35 L88 35Z" fill="white" opacity="0.95"/><circle cx="42" cy="88" r="10" fill="#1A234D"/></svg></div>
       <div class="leading-none"><span style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:18px; letter-spacing:-0.5px; line-height:1;"><span style="color:#1A234D;">Fone</span><span style="background:linear-gradient(180deg,#5B4CFF 0%,#A68CFF 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;display:inline-block;">v</span><span style="color:#1A234D;">ia</span></span><p class="m text-[11px] text-[#6C5CE7]/70 font-bold mt-[2px]">മലബാറിന്റെ സ്വന്തം</p></div>
     </div>
-    <div class="flex items-center gap-3">
-      <div class="relative"><button id="notifBell" class="w-10 h-10 bg-[#F8F7FF] rounded-full flex items-center justify-center hover:bg-gray-100 transition relative"><span class="text-lg">🔔</span><span id="notifCount" class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold animate-pulse">3</span></button><div id="notifPanel" class="hidden absolute right-0 top-12 w-[340px] bg-white rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.15)] border p-4 z-[100]"><div class="flex justify-between items-center"><p class="font-bold text-sm">New Arrivals & Offers 🔥</p><button onclick="clearNotif()" class="text-xs text-[#6C5CE7] font-bold">Clear all</button></div><div class="mt-4 space-y-3 max-h-[320px] overflow-auto" id="notifList"></div><button onclick="document.getElementById('shopsSection').scrollIntoView({behavior:'smooth'})" class="w-full mt-3 bg-[#1A234D] text-white py-2.5 rounded-full text-xs font-bold">View All New Stocks →</button></div></div>
-      <a href="/dashboard/" class="bg-[#1A234D] text-white px-6 py-2.5 rounded-full text-xs font-bold hover:bg-black transition">Dashboard →</a>
+    <div class="flex items-center gap-2 md:gap-3">
+      <div class="relative"><button id="notifBell" class="w-10 h-10 bg-[#F8F7FF] rounded-full flex items-center justify-center hover:bg-gray-100 transition relative"><span class="text-lg">🔔</span><span id="notifCount" class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold animate-pulse">3</span></button><div id="notifPanel" class="hidden absolute -right-2 md:right-0 top-12 w-[92vw] max-w-[340px] md:w-[340px] bg-white rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.15)] border p-4 z-[100]"><div class="flex justify-between items-center"><p class="font-bold text-sm">New Arrivals & Offers 🔥</p><button onclick="clearNotif()" class="text-xs text-[#6C5CE7] font-bold">Clear all</button></div><div class="mt-4 space-y-3 max-h-[320px] overflow-auto" id="notifList"></div><button onclick="document.getElementById('shopsSection').scrollIntoView({behavior:'smooth'})" class="w-full mt-3 bg-[#1A234D] text-white py-2.5 rounded-full text-xs font-bold">View All New Stocks →</button></div></div>
+      <a href="/dashboard/" class="bg-[#1A234D] text-white px-4 md:px-6 py-2.5 rounded-full text-xs font-bold hover:bg-black transition">Dashboard →</a>
     </div>
   </nav>
 
-  <div id="newArrivalBanner" class="bg-gradient-to-r from-[#6C5CE7] to-[#1A234D] text-white mx-6 md:mx-8 mt-4 rounded-2xl p-3 flex justify-between items-center"><div class="flex items-center gap-3"><span class="bg-white text-[#6C5CE7] text-[10px] font-extrabold px-2 py-1 rounded-full animate-pulse">NEW</span><p class="text-xs md:text-sm font-bold">iPhone 15 Pro Max stock vannittund Manjeri & Kozhikode shopsil! 🔥</p></div><button onclick="document.getElementById('newArrivalBanner').classList.add('hidden')" class="text-white/70 text-lg">×</button></div>
+  <div id="newArrivalBanner" class="bg-gradient-to-r from-[#6C5CE7] to-[#1A234D] text-white mx-4 md:mx-8 mt-4 rounded-2xl p-3 flex justify-between items-center gap-2"><div class="flex items-center gap-3 min-w-0"><span class="bg-white text-[#6C5CE7] text-[10px] font-extrabold px-2 py-1 rounded-full animate-pulse shrink-0">NEW</span><p class="text-xs md:text-sm font-bold truncate md:whitespace-normal">iPhone 15 Pro Max stock vannittund Manjeri & Kozhikode shopsil! 🔥</p></div><button onclick="document.getElementById('newArrivalBanner').classList.add('hidden')" class="text-white/70 text-lg shrink-0 px-2">×</button></div>
 
-  <div class="max-w-4xl mx-auto px-6 pt-10 text-center">
-    <h1 class="text-[44px] font-extrabold leading-[0.9] text-[#1A234D]">Mobile Service<br><span class="m text-[#6C5CE7]">നാട്ടിൽ തന്നെ</span></h1>
+  <div class="max-w-4xl mx-auto px-4 md:px-6 pt-8 md:pt-10 text-center">
+    <h1 class="text-[32px] md:text-[44px] font-extrabold leading-[0.9] text-[#1A234D]">Mobile Service<br><span class="m text-[#6C5CE7]">നാട്ടിൽ തന്നെ</span></h1>
     <p class="text-sm text-gray-400 mt-3">6 Malabar Districts • 120+ Shops</p>
 
-    <!-- FIND SHOPS BOX WITH OTHER OPTION -->
     <div class="bg-white rounded-[22px] p-3 mt-6 shadow flex flex-col gap-2 card text-left">
       <div class="flex flex-col md:flex-row gap-2">
         <select id="districtSelect" class="flex-1 px-5 py-3 rounded-full bg-[#F8F7FF] text-sm font-semibold outline-none"><option value="all">All Malabar</option><option>Malappuram</option><option>Kozhikode</option><option>Kannur</option><option>Wayanad</option><option>Palakkad</option><option>Kasaragod</option></select>
-
         <select id="phoneSelect" class="flex-1 px-5 py-3 rounded-full bg-[#F8F7FF] text-sm font-semibold outline-none">
           <option>iPhone 15 Pro Max</option><option>Samsung S23 Ultra</option><option>Redmi Note 13 Pro</option><option>iPhone 14</option><option>OnePlus 11</option><option value="Other">Other - Type Your Phone</option>
         </select>
-
         <select id="issueSelect" class="flex-1 px-5 py-3 rounded-full bg-[#F8F7FF] text-sm font-semibold outline-none">
           <option>Display Change</option><option>Battery Issue</option><option>Buy New Phone</option><option>Charging Issue</option><option>Water Damage</option><option>Speaker / Mic Issue</option><option value="Other">Other - Type Your Issue</option>
         </select>
-
-        <button id="findBtn" class="bg-[#6C5CE7] text-white px-8 py-3 rounded-full text-sm font-bold hover:bg-[#5a4bd1] transition">Find Shops →</button>
+        <button id="findBtn" class="bg-[#6C5CE7] text-white px-8 py-3 rounded-full text-sm font-bold hover:bg-[#5a4bd1] transition w-full md:w-auto">Find Shops →</button>
       </div>
-
-      <!-- OTHER INPUTS - HIDDEN BY DEFAULT -->
-      <div id="otherInputs" class="hidden flex flex-col md:flex-row gap-2 animate-[fadeIn_0.3s]">
+      <div id="otherInputs" class="hidden flex flex-col md:flex-row gap-2">
         <input id="customPhoneInput" placeholder="📱 Your Phone Model - Ex: Vivo V29" class="hidden flex-1 px-5 py-3 rounded-full bg-[#FFF8E6] border border-yellow-200 text-sm outline-none font-semibold placeholder:text-gray-400">
         <input id="customIssueInput" placeholder="🔧 Your Issue - Ex: Camera not working" class="hidden flex-1 px-5 py-3 rounded-full bg-[#FFF0F0] border border-red-200 text-sm outline-none font-semibold placeholder:text-gray-400">
       </div>
@@ -68,7 +62,7 @@
 
     <div id="shopsSection" class="hidden mt-8 text-left">
       <h3 class="font-bold text-[#1A234D]">Available Shops for <span id="selectedPhone" class="text-[#6C5CE7]"></span> in <span id="selectedDistrict" class="text-[#6C5CE7]"></span> <span id="resultCount" class="text-xs text-gray-400 font-normal"></span></h3>
-      <div id="shopsList" class="grid md:grid-cols-2 gap-3 mt-4"></div>
+      <div id="shopsList" class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4"></div>
     </div>
 
     <div class="bg-white rounded-2xl p-5 mt-8 text-left card">
@@ -90,7 +84,6 @@
     document.addEventListener('click',(e)=>{ if(!bell.contains(e.target) &&!panel.contains(e.target)){ panel.classList.add('hidden'); }});
     function clearNotif(){ notifList.innerHTML = `<p class="text-xs text-gray-400 text-center py-6">No new notifications 🔕</p>`; document.getElementById('notifCount').classList.add('hidden'); }
 
-    // OTHER OPTION LOGIC
     const phoneSelect = document.getElementById('phoneSelect');
     const issueSelect = document.getElementById('issueSelect');
     const customPhoneInput = document.getElementById('customPhoneInput');
@@ -100,16 +93,10 @@
     function checkOther(){
       let showPhone = phoneSelect.value === 'Other';
       let showIssue = issueSelect.value === 'Other';
-
-      if(showPhone || showIssue){
-        otherInputs.classList.remove('hidden');
-      } else {
-        otherInputs.classList.add('hidden');
-      }
+      if(showPhone || showIssue){ otherInputs.classList.remove('hidden'); } else { otherInputs.classList.add('hidden'); }
       customPhoneInput.classList.toggle('hidden',!showPhone);
       customIssueInput.classList.toggle('hidden',!showIssue);
     }
-
     phoneSelect.addEventListener('change', checkOther);
     issueSelect.addEventListener('change', checkOther);
 
@@ -119,7 +106,6 @@
       const district = document.getElementById('districtSelect').value;
       let phone = phoneSelect.value;
       let issue = issueSelect.value;
-
       if(phone === 'Other'){
         phone = customPhoneInput.value.trim() || 'Custom Phone';
         if(customPhoneInput.value.trim()===''){ alert('Phone model type cheyyu'); customPhoneInput.focus(); return; }
@@ -128,13 +114,10 @@
         issue = customIssueInput.value.trim() || 'Custom Issue';
         if(customIssueInput.value.trim()===''){ alert('Issue type cheyyu'); customIssueInput.focus(); return; }
       }
-
       document.getElementById('selectedPhone').innerText = phone + ' - ' + issue;
       document.getElementById('selectedDistrict').innerText = district === 'all'? 'All Malabar' : district;
-
       let filtered = district === 'all'? allShops : allShops.filter(s => s.dist.toLowerCase() === district.toLowerCase());
       if(filtered.length === 0) filtered = allShops.slice(0,4);
-
       document.getElementById('resultCount').innerText = `(${filtered.length} shops found)`;
       document.getElementById('shopsList').innerHTML = filtered.map(s => `
         <div class="bg-white rounded-2xl p-4 shadow-sm border card">
@@ -143,7 +126,6 @@
           <div class="flex gap-2 mt-3"><span class="text-[10px] bg-[#F2EBFF] text-[#6C5CE7] px-2 py-1 rounded-full font-bold">${phone}</span><span class="text-[10px] bg-green-50 text-green-600 px-2 py-1 rounded-full font-bold">Available for ${issue}</span></div>
         </div>
       `).join('');
-
       document.getElementById('shopsSection').classList.remove('hidden');
       document.getElementById('shopsSection').scrollIntoView({behavior:'smooth'});
     });
@@ -154,7 +136,6 @@
       document.getElementById('orderIdText').innerText = val.toUpperCase() + ' - Repairing 🔧';
       document.getElementById('orderDetails').innerText = `📍 Mobile Care Manjeri • ${issueSelect.value === 'Other'? customIssueInput.value || 'Custom Issue' : issueSelect.value} • 60% Completed`;
       document.getElementById('trackResult').classList.remove('hidden');
-      document.getElementById('trackResult').animate([{transform:'translateX(-2px)'},{transform:'translateX(2px)'},{transform:'translateX(0)'}],{duration:200});
     });
     document.getElementById('trackInput').addEventListener('keypress', function(e){ if(e.key==='Enter'){ document.getElementById('trackBtn').click(); }});
 </script>
