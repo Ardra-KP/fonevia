@@ -20,4 +20,4 @@ Fonevia is a Django-based platform for buying, selling mobile phones and managin
 - **Deployment:** Render
 
 ### 👩‍💻 Developed By
-Ardra KP - BCA 2025 Graduate
+Ardra KP - Software Developer
