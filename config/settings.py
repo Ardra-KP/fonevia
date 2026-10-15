@@ -2,8 +2,11 @@ from pathlib import Path
 import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-SECRET_KEY = 'django-insecure-^z3_&^9-iq)6q611k5)^fpo32b9d062#drzayo&=d2xhz1&*gs'
-DEBUG = False
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-^z3_&^9-iq)6q611k5)^fpo32b9d062#drzayo&=d2xhz1&*gs')
+
+# ENV il ninnu DEBUG edukkum
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+
 ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = ['https://*.onrender.com', 'https://fonevia.onrender.com']
 
@@ -36,7 +39,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -71,8 +74,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-
-# FIX: Manifest error varathirikkan CompressedStaticFilesStorage aakki
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
